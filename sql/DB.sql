@@ -12,3 +12,4 @@ CREATE TABLE users (
     country VARCHAR(50) NOT NULL
 );
 
+SELECT * FROM users;
