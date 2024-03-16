@@ -1,9 +1,3 @@
-<?php
-session_start();
-if (isset($_SESSION["user"])) {
-   header("Location: index.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +64,7 @@ if (isset($_SESSION["user"])) {
 
         }
         ?>
-        <form action="registration.php" class="my-form" method="post">
+        <form action="Register.php" class="my-form" method="post">
             <div class="login-welcome-row">
                 <a href="#" title="Logo">
                     <img src="assets/storeify.png" alt="Logo" class="logo">
