@@ -1,136 +1,82 @@
-<!DOCTYPE html>
+<?php
+session_start();
+include('includes/config.php');
+if(isset($_POST['login']))
+{
+$uname=$_POST['username'];
+$password=md5($_POST['password']);
+$sql ="SELECT UserName,Password FROM admin WHERE UserName=:uname and Password=:password";
+$query= $dbh -> prepare($sql);
+$query-> bindParam(':uname', $uname, PDO::PARAM_STR);
+$query-> bindParam(':password', $password, PDO::PARAM_STR);
+$query-> execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+$_SESSION['alogin']=$_POST['username'];
+echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
+} else{
+	
+	echo "<script>alert('Invalid Details');</script>";
+
+}
+
+}
+
+?>
+
+<!DOCTYPE HTML>
 <html>
 <head>
-  <title>Admin</title>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-       <link rel="stylesheet" href="./assets/css/style.css"></link>
-  </head>
-</head>
-<body >
-    
-        <?php
-            include "./adminHeader.php";
-            include "./sidebar.php";
-           
-            include_once "./config/dbconnect.php";
-        ?>
-
-    <div id="main-content" class="container allContent-section py-4">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="card">
-                    <i class="fa fa-users  mb-2" style="font-size: 70px;"></i>
-                    <h4 style="color:white;">Total Users</h4>
-                    <h5 style="color:white;">
-                    <?php
-                        $sql="SELECT * from user where isAdmin=0";
-                        $result=$conn-> query($sql);
-                        $count=0;
-                        if ($result-> num_rows > 0){
-                            while ($row=$result-> fetch_assoc()) {
-                    
-                                $count=$count+1;
-                            }
-                        }
-                        echo $count;
-                    ?></h5>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card">
-                    <i class="fa fa-th-large mb-2" style="font-size: 70px;"></i>
-                    <h4 style="color:white;">Total Categories</h4>
-                    <h5 style="color:white;">
-                    <?php
-                       
-                       $sql="SELECT * from category";
-                       $result=$conn-> query($sql);
-                       $count=0;
-                       if ($result-> num_rows > 0){
-                           while ($row=$result-> fetch_assoc()) {
-                   
-                               $count=$count+1;
-                           }
-                       }
-                       echo $count;
-                   ?>
-                   </h5>
-                </div>
-            </div>
-            <div class="col-sm-3">
-            <div class="card">
-                    <i class="fa fa-th mb-2" style="font-size: 70px;"></i>
-                    <h4 style="color:white;">Total Tour</h4>
-                    <h5 style="color:white;">
-                    <?php
-                       
-                       $sql="SELECT * from product";
-                       $result=$conn-> query($sql);
-                       $count=0;
-                       if ($result-> num_rows > 0){
-                           while ($row=$result-> fetch_assoc()) {
-                   
-                               $count=$count+1;
-                           }
-                       }
-                       echo $count;
-                   ?>
-                   </h5>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="card">
-                    <i class="fa fa-list mb-2" style="font-size: 70px;"></i>
-                    <h4 style="color:white;">Total orders</h4>
-                    <h5 style="color:white;">
-                    <?php
-                       
-                       $sql="SELECT * from orders";
-                       $result=$conn-> query($sql);
-                       $count=0;
-                       if ($result-> num_rows > 0){
-                           while ($row=$result-> fetch_assoc()) {
-                   
-                               $count=$count+1;
-                           }
-                       }
-                       echo $count;
-                   ?>
-                   </h5>
-                </div>
-            </div>
-        </div>
-        
-    </div>
-       
-            
-        <?php
-            if (isset($_GET['category']) && $_GET['category'] == "success") {
-                echo '<script> alert("Category Successfully Added")</script>';
-            }else if (isset($_GET['category']) && $_GET['category'] == "error") {
-                echo '<script> alert("Adding Unsuccess")</script>';
-            }
-            if (isset($_GET['size']) && $_GET['size'] == "success") {
-                echo '<script> alert("Size Successfully Added")</script>';
-            }else if (isset($_GET['size']) && $_GET['size'] == "error") {
-                echo '<script> alert("Adding Unsuccess")</script>';
-            }
-            if (isset($_GET['variation']) && $_GET['variation'] == "success") {
-                echo '<script> alert("Variation Successfully Added")</script>';
-            }else if (isset($_GET['variation']) && $_GET['variation'] == "error") {
-                echo '<script> alert("Adding Unsuccess")</script>';
-            }
-        ?>
-
-
-    <script type="text/javascript" src="./assets/js/ajaxWork.js"></script>    
-    <script type="text/javascript" src="./assets/js/script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+<title>TMS | Admin Sign in</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="css/morris.css" type="text/css"/>
+<!-- Graph CSS -->
+<link href="css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="css/jquery-ui.css"> 
+<!-- jQuery -->
+<script src="js/jquery-2.1.4.min.js"></script>
+<!-- //jQuery -->
+<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- lined-icons -->
+<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
+<!-- //lined-icons -->
+</head> 
+<body>
+	<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<h2>Sign In</h2>
+		<form  method="post">
+			<div class="username">
+				<span class="username">Username:</span>
+				<input type="text" name="username" class="name" placeholder="" required="">
+				<div class="clearfix"></div>
+			</div>
+			<div class="password-agileits">
+				<span class="username">Password:</span>
+				<input type="password" name="password" class="password" placeholder="" required="">
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="login-w3">
+					<input type="submit" class="login" name="login" value="Sign In">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+				<div class="back">
+					<a href="../index.php">Back to home</a>
+				</div>
+				
+	</div>
+	</div>
+	</div>
 </body>
- 
 </html>
