@@ -12,7 +12,7 @@
 		<ul class="tp-hd-rgt wow fadeInRight animated" data-wow-delay=".5s"> 
 			<li class="tol">Welcome :</li>				
 			<li class="sig"><?php echo htmlentities($_SESSION['login']);?></li> 
-			<li class="sigi"><a href="logout.php" >/ Logout</a></li>
+			<li class="sigi"><a href="./index.html" >/ Logout</a></li>
         </ul>
 		<div class="clearfix"></div>
 	</div>

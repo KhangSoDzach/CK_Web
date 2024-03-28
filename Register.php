@@ -37,7 +37,7 @@
             array_push($errors,"Password does not match");
            }
            require_once "database.php";
-           $sql = "SELECT * FROM user WHERE email = '$email'";
+           $sql = "SELECT * FROM tblusers WHERE EmailId = '$email'";
            $result = mysqli_query($conn, $sql);
            $rowCount = mysqli_num_rows($result);
            if ($rowCount>0) {
@@ -49,7 +49,7 @@
             }
            }else{
             
-            $sql = "INSERT INTO user (username, email, password) VALUES ( ?, ?, ? )";
+            $sql = "INSERT INTO tblusers (FullName, EmailId, Password) VALUES ( ?, ?, ? )";
             $stmt = mysqli_stmt_init($conn);
             $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
             if ($prepareStmt) {

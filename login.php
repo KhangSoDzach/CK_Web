@@ -15,11 +15,11 @@
            $email = $_POST["email"];
            $password = $_POST["password"];
             require_once "database.php";
-            $sql = "SELECT * FROM user WHERE email = '$email'";
+            $sql = "SELECT * FROM tblusers WHERE EmailId = '$email'";
             $result = mysqli_query($conn, $sql);
             $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
             if ($user) {
-                if (password_verify($password, $user["password"])) {
+                if (password_verify($password, $user["Password"])) {
                     session_start();
                     $_SESSION["user"] = "yes";
                     if($taikhaon === 'admin' && $pass=== $getpass){
@@ -28,9 +28,13 @@
                     else if ($email == "admin@gmail.com") {
                         header("Location: index_admin.html");
                     }
-                    else header("Location: index_login.html");
+                    else{
+                        header("Location: index_login.html");
+                        $_SESSION['login']=$_POST['email'];
+                    }
                     die();
-                }else{
+                }
+                else{
                     echo "<div class='alert alert-danger'>Password does not match</div>";
                 }
             }else{

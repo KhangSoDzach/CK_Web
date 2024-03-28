@@ -3,13 +3,13 @@ error_reporting(0);
 if(isset($_POST['submit']))
 {
 $fname=$_POST['fname'];
-$mnumber=$_POST['mobilenumber'];
+
 $email=$_POST['email'];
 $password=md5($_POST['password']);
-$sql="INSERT INTO  tblusers(FullName,MobileNumber,EmailId,Password) VALUES(:fname,:mnumber,:email,:password)";
+$sql="INSERT INTO  tblusers(FullName,EmailId,Password) VALUES(:fname,:email,:password)";
 $query = $dbh->prepare($sql);
 $query->bindParam(':fname',$fname,PDO::PARAM_STR);
-$query->bindParam(':mnumber',$mnumber,PDO::PARAM_STR);
+
 $query->bindParam(':email',$email,PDO::PARAM_STR);
 $query->bindParam(':password',$password,PDO::PARAM_STR);
 $query->execute();
