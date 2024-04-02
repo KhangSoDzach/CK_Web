@@ -74,7 +74,7 @@ else{
 				</div>
 <!--heder end here-->
 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Manage Users</li>
+                <li class="breadcrumb-item"><a href="dashboard.php">Home</a><i class="fa fa-angle-right"></i>Manage Users</li>
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
@@ -87,14 +87,14 @@ else{
 						  <tr>
 						  <th>#</th>
 							<th>Name</th>
-							<!-- <th>Mobile No.</th> -->
+							<th>Mobile No.</th>
 							<th>Email Id</th>
-							<!-- <th>RegDate </th>
-							<th>Updation Date</th> -->
+							<th>RegDate </th>
+							<th>Updation Date</th>
 						  </tr>
 						</thead>
 						<tbody>
-<?php $sql = "SELECT * from user #tblusers";
+<?php $sql = "SELECT * from tblusers";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -105,11 +105,11 @@ foreach($results as $result)
 {				?>		
 						  <tr>
 							<td><?php echo htmlentities($cnt);?></td>
-							<td><?php echo htmlentities($result->username);?></td>
-							<!-- <td><?php echo htmlentities($result->MobileNumber);?></td> -->
-							<td><?php echo htmlentities($result->email);?></td>
-							<!-- <td><?php echo htmlentities($result->RegDate);?></td>
-							<td><?php echo htmlentities($result->UpdationDate);?></td> -->
+							<td><?php echo htmlentities($result->FullName);?></td>
+							<td><?php echo htmlentities($result->MobileNumber);?></td>
+							<td><?php echo htmlentities($result->EmailId);?></td>
+							<td><?php echo htmlentities($result->RegDate);?></td>
+							<td><?php echo htmlentities($result->UpdationDate);?></td>
 						  </tr>
 						 <?php $cnt=$cnt+1;} }?>
 						</tbody>

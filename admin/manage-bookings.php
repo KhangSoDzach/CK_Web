@@ -116,7 +116,7 @@ $msg="Booking Confirm successfully";
 				</div>
 <!--heder end here-->
 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Manage Bookings</li>
+                <li class="breadcrumb-item"><a href="dashboard.php">Home</a><i class="fa fa-angle-right"></i>Manage Bookings</li>
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
@@ -130,7 +130,7 @@ $msg="Booking Confirm successfully";
 						  <tr>
 						  <th>Booikn id</th>
 							<th>Name</th>
-							<!-- <th>Mobile No.</th> -->
+							<th>Mobile No.</th>
 							<th>Email Id</th>
 							<th>RegDate </th>
 							<th>From /To </th>
@@ -140,28 +140,14 @@ $msg="Booking Confirm successfully";
 						  </tr>
 						</thead>
 						<tbody>
-
-
 <?php $sql = "SELECT tblbooking.BookingId as bookid,
-user.username as fname,
-user.email as email,
-tbltourpackages.PackageName as pckname,tblbooking.PackageId as pid,
-tblbooking.FromDate as fdate,tblbooking.ToDate as tdate,
-tblbooking.Comment as comment,tblbooking.status as status,
-tblbooking.CancelledBy as cancelby,
-tblbooking.UpdationDate as upddate from user join  tblbooking on  tblbooking.UserEmail=user.email join tbltourpackages on tbltourpackages.PackageId=tblbooking.PackageId";
-
-
-// <!-- <?php $sql = "SELECT tblbooking.BookingId as bookid,
-// tblusers.FullName as fname,
-// tblusers.MobileNumber as mnumber,
-// tblusers.EmailId as email,
-// tbltourpackages.PackageName as pckname,tblbooking.PackageId as pid,
-// tblbooking.FromDate as fdate,tblbooking.ToDate as tdate,
-// tblbooking.Comment as comment,tblbooking.status as status,
-// tblbooking.CancelledBy as cancelby,
-// tblbooking.UpdationDate as upddate from tblusers join  tblbooking on  tblbooking.UserEmail=tblusers.EmailId join tbltourpackages on tbltourpackages.PackageId=tblbooking.PackageId"; -->
-
+tblusers.FullName as fname,
+tblusers.EmailId as email,
+tbltourpackages.PackageName as pckname,
+tblbooking.PackageId as pid,tblbooking.FromDate as fdate,
+tblbooking.ToDate as tdate,tblbooking.Comment as comment,
+tblbooking.status as status,tblbooking.CancelledBy as cancelby,
+tblbooking.UpdationDate as upddate from tblusers join  tblbooking on  tblbooking.UserEmail=tblusers.EmailId join tbltourpackages on tbltourpackages.PackageId=tblbooking.PackageId";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -173,7 +159,7 @@ foreach($results as $result)
 						  <tr>
 							<td>#BK-<?php echo htmlentities($result->bookid);?></td>
 							<td><?php echo htmlentities($result->fname);?></td>
-							// <td><?php echo htmlentities($result->mnumber);?></td>
+							<td><?php echo htmlentities($result->mnumber);?></td>
 							<td><?php echo htmlentities($result->email);?></td>
 							<td><a href="update-package.php?pid=<?php echo htmlentities($result->pid);?>"><?php echo htmlentities($result->pckname);?></a></td>
 							<td><?php echo htmlentities($result->fdate);?> To <?php echo htmlentities($result->tdate);?></td>
