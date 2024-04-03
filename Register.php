@@ -19,12 +19,14 @@
            $email = $_POST["email"];
            $password = $_POST["password"];
            $passwordRepeat = $_POST["repeat_password"];
-           
+           $phone = $_POST["phone"]; 
+
+
            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
            $errors = array();
            
-           if (empty($username) OR empty($email) OR empty($password) OR empty($passwordRepeat)) {
+           if (empty($username) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($phone) ) {
             array_push($errors,"All fields are required");
            }
            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -49,11 +51,11 @@
             }
            }else{
             
-            $sql = "INSERT INTO tblusers (FullName, EmailId, Password) VALUES ( ?, ?, ? )";
+            $sql = "INSERT INTO tblusers (FullName, EmailId, Password, Phone) VALUES ( ?, ?, ?, ?)";
             $stmt = mysqli_stmt_init($conn);
             $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
             if ($prepareStmt) {
-                mysqli_stmt_bind_param($stmt,"sss",$username, $email, $passwordHash);
+                mysqli_stmt_bind_param($stmt,"ssss",$username, $email, $passwordHash, $phone);
                 mysqli_stmt_execute($stmt);
                 echo "<div class='alert alert-success'>You are registered successfully.</div>";
             }else{
@@ -88,6 +90,16 @@
             <div class="input__wrapper">
                 <input type="email" id="email" name="email" class="input__field" placeholder="Your Email" required>
                 <label for="email" class="input__label">Email:</label>
+                <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                    <path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28"></path>
+                </svg>
+            </div>
+            <div class="input__wrapper">
+                <input type="phone" id="phone" name="phone" class="input__field" placeholder="Your Phone" required>
+                <label for="phone" class="input__label">Phone:</label>
                 <svg class="input__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

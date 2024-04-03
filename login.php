@@ -80,6 +80,7 @@
         </div>
       </form>
      <div><p>Not registered yet <a href="Register.php">Register Here</a></p></div>
+     <div><p>Forgot Password? <a href="forgot-password.php">Vao Here</a></p></div>
     </div>
 </body>
 </html>

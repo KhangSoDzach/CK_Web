@@ -79,7 +79,7 @@ $msg="Profile Updated Successfully";
 <!--- privacy ---->
 <div class="privacy">
 	<div class="container">
-		<h3 class="wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">Change Password</h3>
+		<h3 class="wow fadeInDown animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDown;">Profile</h3>
 		<form name="chngpwd" method="post">
 		 <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
 				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
@@ -102,28 +102,28 @@ foreach($results as $result)
 			<b>Name</b>  <input type="text" name="name" value="<?php echo htmlentities($result->FullName);?>" class="form-control" id="name" required="">
 	</p> 
 
-<!-- <p style="width: 350px;">
+<p style="width: 350px;">
 <b>Mobile Number</b>
-<input type="text" class="form-control" name="mobileno" maxlength="10" value="<?php echo htmlentities($result->MobileNumber);?>" id="mobileno"  required="">
-</p> -->
+<input type="text" class="form-control" name="mobileno" maxlength="10" value="<?php echo htmlentities($result->Phone);?>" id="mobileno"  required="">
+</p>
 
 <p style="width: 350px;">
 <b>Email Id</b>
 	<input type="email" class="form-control" name="email" value="<?php echo htmlentities($result->EmailId);?>" id="email" readonly>
 			</p>
 <p style="width: 350px;">
-<b>Last Updation Date : </b>
+<!-- <b>Last Updation Date : </b>
 <?php echo htmlentities($result->UpdationDate);?>
 </p>
 
 <p style="width: 350px;">	
 <b>Reg Date :</b>
 <?php echo htmlentities($result->RegDate);?>
-			</p>
+			</p> -->
 <?php }} ?>
 
 			<p style="width: 350px;">
-<button type="submit" name="submit6" class="btn-primary btn">Updtae</button>
+<button type="submit" name="submit6" class="btn-primary btn">Update</button>
 			</p>
 			</form>
 
